@@ -39,3 +39,13 @@ resource "aws_iam_instance_profile" "ec2_instance_profile" {
   name = "lti-project-ec2-instance-profile"
   role = aws_iam_role.ec2_role.name
 }
+
+resource "aws_iam_policy" "ec2_datadog_agent_policy" {
+  name   = "ec2-datadog-agent-policy"
+  policy = file("${path.module}/scripts/ec2_datadog_agent_policy.json")
+}
+
+resource "aws_iam_role_policy_attachment" "attach_ec2_datadog_agent_policy" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn = aws_iam_policy.ec2_datadog_agent_policy.arn
+}

@@ -68,7 +68,7 @@ npm install
 ```
 cd backend
 npm run build
-````
+```
 4. Inicia el servidor backend:
 ```
 cd backend
@@ -126,7 +126,7 @@ npx prisma migrate dev
 ts-node seed.ts
 ```
 
-Una vez has dado todos los pasos, deberías poder guardar nuevos candidatos, tanto via web, como via API, verlos en la base de datos y obtenerlos mediante GET por id. 
+Una vez has dado todos los pasos, deberías poder guardar nuevos candidatos, tanto via web, como via API, verlos en la base de datos y obtenerlos mediante GET por id.
 
 ```
 POST http://localhost:3010/candidates
@@ -159,4 +159,24 @@ POST http://localhost:3010/candidates
     }
 }
 ```
+
+## Integración Datadog-AWS
+
+Se ha realizado la integración de Datadog con AWS usando Terraform, siguiendo buenas prácticas de seguridad:
+
+- Se crea un rol IAM con permisos mínimos para Datadog.
+- Se instala el agente Datadog en las instancias EC2 mediante user_data.
+- Se define un dashboard básico en Datadog para monitorizar métricas clave de AWS.
+- Las claves de Datadog se gestionan mediante variables sensibles y nunca se suben al repositorio.
+- Se documentan los prompts utilizados en `prompts/datadog-aws-prompts.md` y `prompts/prompts-DCA.md`.
+
+### Desafíos y soluciones
+
+- **Gestión de secretos:** Se usan variables sensibles y se recomienda el uso de sistemas de gestión de secretos para producción.
+- **Permisos mínimos:** La política IAM para Datadog se limita a los recursos estrictamente necesarios.
+- **Automatización:** Todo el proceso es reproducible y auditable mediante Terraform.
+
+### Capturas de pantalla
+
+_Añade aquí tus capturas del dashboard y alertas de Datadog una vez desplegado._
 
